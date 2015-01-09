@@ -13,19 +13,13 @@ exports.headers = headers = {
 exports.serveAssets = function(res, asset, callback) {
   // Write some code here that helps serve up your static files!
   // (Static files are things like html (yours or archived from others...), css, or anything that doesn't change often.)
-//
-
-  // fs.readFile(asset, function(err, data){
-
-  // });
-
-
   var fileStream = fs.createReadStream(asset);
   var stream = '';
 
   fileStream.on('error', function(exception){
     console.log('\nError on filestream: ', exception);
     console.log('Url attempted to be opened is: ', asset);
+    exports.sendResponse(res, 'File not found', 404);
   });
 
   fileStream.on('data', function(data){
@@ -42,7 +36,7 @@ exports.serveAssets = function(res, asset, callback) {
 
 
 
-// As you progresasdfas, keep /thinking about what helper functions you can put here!
+// As you progress, keep thinking about what helper functions you can put here!
 
 exports.sendResponse = function(res, obj, status){
   status = status || 200;
